@@ -6,7 +6,7 @@ import Link from "next/link";
 import TechIconCard from "./TechIconCard";
 
 const InterviewCard = ({
-  interviewId,
+  id,
   userId,
   type,
   role,
@@ -14,7 +14,7 @@ const InterviewCard = ({
   createdAt,
 }: InterviewCardProps) => {
   const feedback = null as Feedback | null;
-  const nType = /mix/gi.test(type) ? "Mixed" : type;
+  const nType = /mix/gi.test(type) ? "Mixed" : type.replace(/^./, str => str.toUpperCase());
 
   const formattedDate = dayjs(
     feedback?.createdAt || createdAt || Date.now()
@@ -61,8 +61,8 @@ const InterviewCard = ({
             <Link
               href={
                 feedback
-                  ? `/interview/${interviewId}/feedback`
-                  : `/interview/${interviewId}`
+                  ? `/interview/${id}/feedback`
+                  : `/interview/${id}`
               }
             >
               {feedback ? "Check Feedback" : "View Interview"}
