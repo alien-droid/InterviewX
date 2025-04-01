@@ -4,8 +4,9 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import TechIconCard from "./TechIconCard";
+import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
 
-const InterviewCard = ({
+const InterviewCard = async ({
   id,
   userId,
   type,
@@ -13,7 +14,7 @@ const InterviewCard = ({
   techstack,
   createdAt,
 }: InterviewCardProps) => {
-  const feedback = null as Feedback | null;
+  const feedback = id && userId ? await getFeedbackByInterviewId({ interviewId: id, userId }) : null;
   const nType = /mix/gi.test(type) ? "Mixed" : type.replace(/^./, str => str.toUpperCase());
 
   const formattedDate = dayjs(
